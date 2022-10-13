@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="conatiner text-center">
+    <h1>Movie Database</h1>
+    <label for="">Add meg a keresendő film címét </label> <br>
+    <input id="userInput" />
+    <button id="search" class="btn btn-primary" type="submit">Keresés</button>
+    </div>
+   
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+          <p class="card-text"></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item1 text-center"></li>
+          <li class="list-group-item2 text-center"></li>
+        </ul>
+
+      </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+        var apiKey = '17c1ddd7df0d1781cf97a8d12a38a40b'
+
+        $('#search').click(function () {
+            var userInput = $('#userInput').val()
+            var api = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&query=' + userInput
+
+            $.ajax({
+                url: api,
+                dataType: 'jsonp',
+                success: function (results) {[]
+                    $('.card-title').text(results.results[0].title)
+                    $('.list-group-item1').text('Értékelés: ' + results.results[0].vote_average)
+                    $('.card-text').text(results.results[0].overview)
+                    $('.list-group-item2').text('Megjelenés: ' + results.results[0].release_date)
+                    $('.card').prepend('<img src=http://image.tmdb.org/t/p/w185' + results.results[0].backdrop_path + '>')
+                },
+            })
+        })
+
+    </script>
+
+</body>
+
+</html>

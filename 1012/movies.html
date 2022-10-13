@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container text-center">
+        <label for="">Add meg a keresendő film címét </label> <br>
+        <input type="text">
+        <button class="btn btn-primary" type="submit" onclick="show()">Keresés</button>
+
+    </div>
+
+   
+
+    
+    <script>
+        //const api_key=process.env.REACT_APP_API_KEY;
+        //const url=`https://api.themoviedb.org/3/search/movie?api_key=&language=hu&page=1&include_adult=false&query=`
+
+
+        /*const getData = async (url) => {
+            const response = await fetch(url)
+            const data = await response.json()
+            console.log(data.results);
+            render(data.results)
+        }
+
+        getData(url)
+
+        function render(data) {
+            for (let obj of data) {
+                let imgUrl = `https://image.tmbd.org/t/p/w300${obj.poster_path}`
+                console.log(obj.original_title, imgUrl)
+            }
+        }
+
+        function show(obj) {
+            //console.log(obj.dataset.info);
+            return `
+                <div class="card">
+                    <img src="${a}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">${a}</h5>
+                    <p class="card-text">${partInfo} <br> <b data-info="${info}" onclick="show(this)">Read more...</b></p>
+                    <p class="card-text"><small class="text-muted">${price}</small></p>
+                    </div>
+                </div>
+            `
+        }*/
+        var apiKey = '17c1ddd7df0d1781cf97a8d12a38a40b'
+
+        $('#search').click(function () {
+            $("#poster").empty();
+            $('#noOfResults').val('Results');
+            var userInput = $('#userInput').val()
+            var api = 'https://api.themoviedb.org/3/search/movie?api_key=' + apiKey + '&query=' + userInput
+
+            $.ajax({
+                url: api,
+                dataType: 'jsonp',
+                success: function (results) {
+                    $('#name').text(results.results[0].title)
+                    $('#rating').text('Rating: ' + results.results[0].vote_average)
+                    $('#description').text(results.results[0].overview)
+                    $('#releaseDate').text('Date Released: ' + results.results[0].release_date)
+                    $('#noOfResults').text(results.results.length + ' results')
+                    $('#poster').prepend('<img src=http://image.tmdb.org/t/p/w185' + results.results[0].backdrop_path + '>')
+                },
+            })
+        })
+
+    </script>
+
+</body>
+
+</html>
